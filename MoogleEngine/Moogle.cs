@@ -18,14 +18,6 @@ public static class Moogle
             element[i] = new SearchItem(ReadFolder()[i],"snippet",0.9f);
         }    
         
-            
-        
-        
-                  
-            
-        
-        
-
         return new SearchResult(element, query);
     }
 }

@@ -34,7 +34,7 @@ public  class Matrix
     #endregion
     #region CheckNUll
     private static void CheckNull(Matrix matrix){
-       if(matrix == null)
+       if(matrix.Equals(null))
        {
            throw new Exception("Matrix can't be null");
        }

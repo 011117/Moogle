@@ -91,7 +91,7 @@ public  class Matrix
             for(int j =0 ; j < matrix2.Columns ; j++)
             {
                 for(int k = 0 ; k < matrix1.Columns ; k++){
-                    result[i,j] = matrix1[i,k] * matrix2[k,j];
+                    result[i,j] += matrix1[i,k] * matrix2[k,j];
                 }
             }
         }
@@ -114,7 +114,7 @@ public  class Matrix
         }
         return new Matrix(result);
     }
-    public bool Equals(Matrix matrix1,Matrix matrix2)
+    public static bool Equals(Matrix matrix1,Matrix matrix2)
     {
         if(!SumDimensionVerification(matrix1,matrix2))
         {
@@ -154,11 +154,11 @@ public  class Matrix
      }
      public static bool operator ==(Matrix matrix1,Matrix matrix2)
      {
-         return matrix1.Equals(matrix2);
+         return Equals(matrix1,matrix2);
      }
      public static bool operator !=(Matrix matrix1,Matrix matrix2)
      {
-         return matrix1.Equals(matrix2);
+         return Equals(matrix1,matrix2);
      }
     #endregion
 }

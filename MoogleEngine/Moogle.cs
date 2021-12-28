@@ -17,7 +17,7 @@ public static class Moogle
         for(int i = 0;i<element.Length;i++){
             element[i] = new SearchItem(ReadFolder()[i],"snippet",0.9f);
         }    
-          
+        
             
         
         
@@ -26,6 +26,6 @@ public static class Moogle
         
         
 
-        return new SearchResult(element, query + ".txt");
+        return new SearchResult(element, query);
     }
 }

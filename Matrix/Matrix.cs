@@ -1,9 +1,12 @@
 ﻿namespace Matrix;
 public  class Matrix
 {
-    public float[,] elements;
-   public Matrix(double [,] elements){
+    private float[,] elements;
+    private int rows,columns;
+    
+    public Matrix(float[,] elements){
        this.elements = elements;
-      
-   }
+       this.rows = elements.GetLength(0);
+       this.columns = elements.GetLength(1);
+    }
 }

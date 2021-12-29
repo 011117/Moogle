@@ -1,11 +1,24 @@
-﻿namespace Matrix;
+﻿using System;
+namespace Matrix;
 public  class Matrix
-{
+ {
     #region Constructors
     private float[,] elements;
-    private int rows,columns;
-    public int Rows {get {return this.rows;}}
-    public int Columns {get{return this.columns;}}
+    private bool transposed;
+    public int Rows 
+    {
+        get 
+        {
+            return this.transposed ? this.elements.GetLength(1) : this.elements.GetLength(0);
+        }
+    }
+    public int Columns 
+    {
+        get
+        {
+            return this.transposed ? this.elements.GetLength(0) : this.elements.GetLength(1);
+        }
+    }
     //Constructor publico 
     public Matrix(float[,] elements){
         if(elements == null)
@@ -13,8 +26,7 @@ public  class Matrix
             throw new Exception("Matrix can't be null");
         }
        this.elements = elements;
-       this.rows = elements.GetLength(0);
-       this.columns = elements.GetLength(1);
+       this.transposed = false;
     }
     //Constructor de una matriz de ceros para poder rellenar
     public Matrix(int rows,int columns){
@@ -24,24 +36,37 @@ public  class Matrix
     #region Iterator
 
     public float this[int r,int c]{
-        get{
-          return this[r,c];
+        get
+        {
+          
+          return this.transposed ? this[c,r] : this[r,c];
         }
-        set{
-            this[r,c] = value;
+        set
+        { 
+            if(transposed)
+            {
+            this[c,r] = value;
+            }
+            else
+            {
+                this[r,c] = value;
+            }
         }
     }
     #endregion
     #region CheckNUll
     private static void CheckNull(Matrix matrix){
-       if(matrix.Equals(null))
+       if(matrix == null)
        {
            throw new Exception("Matrix can't be null");
        }
     }
     #endregion
     #region Methods
-
+    public void Transpose()
+    {
+       this.transposed = !this.transposed;
+    }
     private static bool SumDimensionVerification(Matrix matrix1,Matrix matrix2)
     {
            if(matrix1.Rows != matrix2.Rows || matrix1.Columns != matrix2.Columns)

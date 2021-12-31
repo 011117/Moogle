@@ -1,4 +1,4 @@
-﻿namespace Vector;
+﻿namespace Vectors;
 public class Vector
 {
     #region Constructors

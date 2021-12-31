@@ -1,5 +1,5 @@
 ﻿using System;
-namespace Matrix;
+namespace Matrixes;
 public  class Matrix
  {
     #region Constructors

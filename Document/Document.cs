@@ -1,5 +1,6 @@
 ﻿namespace Document;
-public class Document : IGetTerms
+
+public class Documents : IGetTerms
 {
     private string path;
     private string name;
@@ -25,7 +26,7 @@ public class Document : IGetTerms
     {
           return this.tokens;
     }
-    public Document(string path)
+    public Documents(string path)
     {
         tokens =  new Dictionary<string, int>();
        StreamReader reader = new StreamReader(path);

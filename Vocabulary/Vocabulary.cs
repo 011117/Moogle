@@ -1,33 +1,67 @@
-﻿using System;
-namespace Vocabulary;
+﻿using Document;
+using Matrixes;
+using Vectors;
+
+namespace Vocabulary1;
 public class Vocabulary
 {
-    string[] documents = Directory.GetFiles(@"G:\Study\!!!!Matcom\Prog\Programas\prueba proyecto","*.txt");
-    public Vocabulary(Dictionary<string,int> words){
-       this.words = words; 
-    }
-    
-         Dictionary<string,int> words =  new Dictionary<string, int>();
-    void GetWords()
-    {
         
-       for(int i = 0; i < documents.Length;i++)
-       {
-        StreamReader reader =  new StreamReader(documents[i]);
-        string[] record = reader.ReadToEnd().Replace('\n',' ').Split(' ');
-         foreach(var word in record)
-         {
-             if(words.ContainsKey(word))
-             {
-                 words[word]++;
-             }
-             else
-             {
-                 words.Add(word,1);
-             }
-         }
-       }
+    private Dictionary<string,int> Terms;
+    private Documents[] documents;
+    private Matrix system_matrix;
+
+    public Vocabulary(Documents[] documents)
+    {
+        Terms =  new Dictionary<string, int>();
+        this.documents = documents;
+        foreach(var document in documents)
+        {
+            foreach(var term in document.GetTerms())
+            {
+                if(this.Terms.ContainsKey(term.Key)){
+                     Terms[term.Key]+=term.Value;
+                }
+                else
+                {
+                    this.Terms.Add(term.Key,term.Value);
+                }
+            }
+        }
+       this.system_matrix = CreateSystemMatrix(documents);        
+
     }
+    private Vector Vectorize(IGetTerms elements)
+    {
+        float[] final_vector =  new float[Terms.Count];
+        int iterator = 0;
+        foreach(var word in Terms)
+        {
+            if(elements.GetTerms().ContainsKey(word.Key))
+            {
+              final_vector[iterator] = (float)elements.GetTerms()[word.Key] * Calculate_IDF(word.Key); 
+            }
+            iterator++;
+        }
 
+        return new Vector(final_vector);
+    }
+    private Matrix CreateSystemMatrix(Documents[] documents)
+    {
+       float[,] matrix_result = new float[documents.Length,this.Terms.Count];
+       for(int i = 0 ; i < documents.Length ; i++)
+       {
+           var  document_vector = Vectorize(documents[i]);
+           for(int j = 0 ; j < document_vector.Size ; j++)
+           {
+             matrix_result[i,j] = document_vector[j];
+           }
 
+       }
+       return new Matrix(matrix_result);
+    } 
+    
+    private float Calculate_IDF(string word)
+    {
+       return (float)Math.Log10(documents.Length/documents.Select(elem=>elem.GetTerms().ContainsKey(word)).Count());
+    }
 }

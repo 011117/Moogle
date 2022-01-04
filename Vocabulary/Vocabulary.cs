@@ -5,7 +5,7 @@ using Vectors;
 namespace Vocabulary1;
 public class Vocabulary
 {
-        
+            
     private Dictionary<string,int> Terms;
     private Documents[] documents;
     private Matrix system_matrix;
@@ -59,6 +59,14 @@ public class Vocabulary
        }
        return new Matrix(matrix_result);
     } 
+    public float CalculateScore(int index,Query query)
+    {
+        float score = 0;
+      
+        score = Vectorize(documents[index]) * Vectorize(query);
+    
+      return score;
+    }
     
     private float Calculate_IDF(string word)
     {

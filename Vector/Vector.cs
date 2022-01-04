@@ -25,7 +25,7 @@ public class Vector
     #region Iterator
     public float this[int index]{
        get{
-           if(index < this.Size && index > 0)
+           if(index < this.Size && index >= 0)
            {
               return elements[index];
            }
@@ -35,7 +35,7 @@ public class Vector
            }
        }
        set{
-           if(index < this.Size && index > 0)
+           if(index < this.Size && index >= 0)
            {
            elements[index] = value;
            }

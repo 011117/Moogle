@@ -1,6 +1,6 @@
 ﻿namespace Document;
 
-public class Documents : IGetTerms
+public class Documents :IGetTerms
 {
     
     private string name;
@@ -22,18 +22,28 @@ public class Documents : IGetTerms
             return this.snippet;
         }
     } 
+    public Dictionary<string,int> Terms
+    {
+        get
+        {
+       return this.tokens;  
+        }      
+    }
     public Dictionary<string,int> GetTerms()
     {
-          return this.tokens;
+        
+       return this.tokens;  
+             
     }
     public Documents(string path)
     {
         tokens =  new Dictionary<string, int>();
        StreamReader reader = new StreamReader(path);
        this.name = path.Split("/")[2];
-       string lecture = reader.ReadToEnd();
-       this.snippet = lecture.Substring(0,2) + "...";
-       string[] words = lecture.Replace('\n',' ').Replace(',',' ').Replace('.',' ').Split(" ");
+       string lecture = reader.ReadToEnd().ToLower();
+       this.snippet = (lecture.Length > 100) ?lecture.Substring(0,500) + "...":lecture.Substring(0,lecture.Length) + "..." ;
+       string[] words = lecture.Replace('.',' ').Replace(',',' ').Replace('\n',' ').Split(" ");
+       Console.WriteLine("aqui " +words.Length);
        foreach(var word in words)
        {
          if(tokens.ContainsKey(word)){

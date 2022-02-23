@@ -39,17 +39,17 @@ public  class Matrix
         get
         {
           
-          return this.transposed ? this[c,r] : this[r,c];
+          return this.transposed ? this.elements[c,r] : this.elements[r,c];
         }
         set
         { 
             if(transposed)
             {
-            this[c,r] = value;
+            this.elements[c,r] = value;
             }
             else
             {
-                this[r,c] = value;
+                this.elements[r,c] = value;
             }
         }
     }

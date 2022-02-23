@@ -3,8 +3,9 @@ public class Vector
 {
     #region Constructors
 
-     float[] elements;
+     private float[] elements;
      
+     public float Norm{ get{return(float) Math.Sqrt(DotProduct(this,this));}}
      public int Size
      {
        get{ return this.elements.Length; }
@@ -57,6 +58,14 @@ public class Vector
       
      #endregion
     #region Methods
+    public static float CosDistance(Vector vec1, Vector vec2)
+	{
+		CheckNull(vec1);
+		CheckNull(vec2);
+
+		return DotProduct(vec1,vec2)/vec1.Norm*vec2.Norm;
+
+	}
     private static bool CheckDimensions(Vector vector1,Vector vector2){
         if(vector1.Size == vector2.Size)
         {
@@ -80,17 +89,17 @@ public class Vector
          CheckNull(vector1);
          CheckNull(vector2);
          float result=0;
-         if(CheckDimensions(vector1,vector2))
-         {
+         if(!CheckDimensions(vector1,vector2))
+          {
+              throw new Exception("Not Same Size");
+          }
+         
          for(int i = 0; i < vector1.Size ; i++)
          {
              result += vector1[i] * vector2[i];
          }
-         }
-          else
-          {
-              throw new Exception("Not Same Size");
-          }
+         
+          
         return result;
      }
      public static Vector ScalarProduct(float scalar,Vector vector)

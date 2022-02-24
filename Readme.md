@@ -13,10 +13,10 @@ esta palabra si se encuentra en los documentos. El buscador ignora las palabras 
 son las preposiciones ya que estas palabras no ofrecen valor en una frase. La aplicacion ofrece una serie de operadores los cuales se explican 
 a continuación:
 Operadores
--- ! -- si este operador está delante de una palabra esta palabra no debe aparecer en los resultados.
--- ^ -- este operador obliga a que la palabra aparezca en los resultados.
--- * -- este aumenta la prioridad(valor) de la palabra, y son acumulativos.
--- ~ -- este operador es entre dos palabras e implica que mientras mas cercanas son las palabras mas prioridad debe tener el documento.
+- -- ! -- si este operador está delante de una palabra esta palabra no debe aparecer en los resultados.
+- -- ^ -- este operador obliga a que la palabra aparezca en los resultados.
+- -- * -- este aumenta la prioridad(valor) de la palabra, y son acumulativos.
+- -- ~ -- este operador es entre dos palabras e implica que mientras mas cercanas son las palabras mas prioridad debe tener el documento.
 
 Determinando la similitud entre la consulta del usuario y los documentos:
 Primeramente cargamos todos los documentos y calculamos el TF(frecuencia de aparición) de las palabras en cada documento y luego con 

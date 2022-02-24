@@ -105,7 +105,17 @@ public class Vocabulary
 						}
 						break;
 
+                       case '~':
+                         for(int k=1;k<op.Value.Count;k++)
+                         {
+                           if(documents[i].Terms.ContainsKey(op.Value[k]) && documents[i].Terms.ContainsKey(op.Value[k-1])){
+                               results[i] /= documents[i].Min_Distance(op.Value[k],op.Value[k-1]);
+                           }
+                         }
+                         break;
 					}
+                    
+
 				}
 		}
 		return results;

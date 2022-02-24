@@ -5,7 +5,7 @@ public class SearchItem
     public SearchItem(string title, string snippet, float score)
     {
         this.Title = title;
-        this.Snippet = snippet;
+        this.Snippet = snippet + score;
         this.Score = score;
     }
 

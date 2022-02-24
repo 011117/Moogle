@@ -90,7 +90,10 @@ este método devuelve la menor distancia entre dos palabaras del documento que t
         return false;
     }
  ```
- -
+ -`Vocabulary`
+ - En la clase `Vocabulary` como su nombre nombre indica es donde ya con los documentos creamos nuestro vocabulario(donde tenemos todas las palabras y la cantidad de veces que aparece) en esta clase es donde vectorizamos los documentos y la consulta del usuario, también calculamos el `TF-IDF` y los `score` de los documentos y además implementamos los operadores.
+ - `LD`
+ - Esta clase es muy sencilla, esta nos ayuda a ¨corregir¨ al usuario. En ella implementamos un algoritmo llamado `Levenshtein Distance`(Distancia de Levenshtein), este algoritmo se usa para ver la mínima cantidad de operaciones para llegar de una palabra a otra. Así si una palabra de la consulta no aparece en mi vocabulario yo busco entre estas y si hay alguna que se parezca es enviada como sugerencia para el usuario.
  
 
 

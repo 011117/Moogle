@@ -40,7 +40,7 @@ La aplicación está dividida en dos componentes fundamentales:
 - `MoogleEngine` es una biblioteca de clases donde está implementada la lógica del algoritmo de búsqueda.
 - Dentro de MoogleEngine creé varias clases para realizar todo el proceso descrito anteriormente.
 - `Document`:
-- En la clase `Document` procesamos los documentos,primero vemos la ruta en la que se encuntran, sabiendo esto tomamos el nombre del documento y el `snippet(pedazo de texto)`, por cada documento lo leemos completo y nos quedamos solo con las cosas que nos interesan, o sea eliminamos caracteres indeseados digase puntos, comas, finales de línea, etc. Guardamos por cada palabra la cantidad de veces que aparece en el documento(`TF`) y las posiciones en las que aparece para poder realizar el operador `~`. La clase `Document` al igual que la clase `Query` de la cual hablaremos más adelante utilizan una `Interface`(Interfaz) llamada GetTerms, por lo que estas dos clases implementan el método GetTerms para devolver sus términos. La clase `Document` tambien implementa un método llamado Min_Distance:
+- En la clase `Document` procesamos los documentos,primero vemos la ruta en la que se encuntran, sabiendo esto tomamos el nombre del documento y el `snippet(pedazo de texto)`, por cada documento lo leemos completo y nos quedamos solo con las cosas que nos interesan, o sea eliminamos caracteres indeseados digase puntos, comas, finales de línea, etc. Guardamos por cada palabra la cantidad de veces que aparece en el documento(`TF`) y las posiciones en las que aparece para poder realizar el operador `~`. La clase `Document` al igual que la clase `Query` de la cual hablaremos más adelante implementan una `Interface`(Interfaz) llamada GetTerms, por lo que estas dos clases implementan el método GetTerms para devolver sus términos. La clase `Document` tambien implementa un método llamado Min_Distance:
 ```cs  
   public int Min_Distance(string a,string b)
     {
@@ -57,7 +57,41 @@ La aplicación está dividida en dos componentes fundamentales:
           }
           return min_distance;
     }
-```
+``` 
+este método devuelve la menor distancia entre dos palabaras del documento que también lo utilizamos para el operador `~`.
+- `Query`:
+- La clase `Query` es muy parecida a la clase `Document`, primero recibimos la consulta del usuario, le hacemos el mismo tratamiento que a los documentos, o sea nos quedamos con lo que nos interesa y eliminamos caracteres indeseables. Tambien vemos si hay operadores y guardamos por cada operador las palabras que este afecta. El método que trata con los operadores es el siguiente:
+ ```cs
+ public static int GetOperators(string text)
+    {
+        if(text.Length <=2) // si es un operador y una letra o un operador vacio es absurdo
+        {
+            return -1;
+        }
+          if(IsOperator(text[0]))
+          {
+              for(int i=0;i<text.Length;i++)
+              {
+                  if(!IsOperator(text[i]))//si es operador retorna la posicion
+                  {
+
+                     return i-1;
+                  }
+              }
+          }  
+          return -1;
+    }
+ ```
+ también implementa un método para verificar si es un operador:
+ ```cs
+  public static bool IsOperator(char c)
+    {
+        if(c == '*' || c == '^' || c == '!' || c == '~')return true;
+        return false;
+    }
+ ```
+ -
+ 
 
 
          

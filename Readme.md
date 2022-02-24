@@ -12,7 +12,7 @@ no contienen todas las palabras, pero la aplicación es capaz de sugerirle una p
 esta palabra si se encuentra en los documentos. El buscador ignora las palabras que aparecen demasiado y en muchos documentos como lo 
 son las preposiciones ya que estas palabras no ofrecen valor en una frase. La aplicacion ofrece una serie de operadores los cuales se explican 
 a continuación:
-Operadores
+##Operadores
 - -- ! -- si este operador está delante de una palabra esta palabra no debe aparecer en los resultados.
 - -- ^ -- este operador obliga a que la palabra aparezca en los resultados.
 - -- * -- este aumenta la prioridad(valor) de la palabra, y son acumulativos.
@@ -26,21 +26,21 @@ nuesto sistema de vectores, esto mismo hacemos con la consulta(query) del usuari
 el vector query y los vectores de los documentos que nos dice cuán parecidos son estos y al valor resultante le llamamos score del documento
 con respecto a la query, a mayor score mayor es la semejanza entre la query y el documento ,por lo tanto mayor prioridad del documento en los resultados. 
 
-Método de busqueda:
+##Método de busqueda:
 Luego de haber calculado los `TF-IDF` de las palabras de los documentos y de la query, teniendo ya el sitema de vectores y la query vectorizada 
 también en termino de los documentos, como dije anteriormente hallamos la distancia coseno entre la query y los documentos para obtener el `score` 
 de cada documento y así saber la relevancia de cada documento. En la parte visual le mandamos solo los documentos que tengan un `score` mayor que 
 cero ya que no nos interesan los documentos con `score` igual a cero pues indica que no tienen niguna semejanza con la query.
 
 
-Ingenieria del Sofware:
+##Ingenieria del Sofware:
 La aplicación está dividida en dos componentes fundamentales:
 
 - `MoogleServer` es un servidor web que renderiza la interfaz gráfica y sirve los resultados.
 - `MoogleEngine` es una biblioteca de clases donde está implementada la lógica del algoritmo de búsqueda.
 - Dentro de MoogleEngine creé varias clases para realizar todo el proceso descrito anteriormente.
-`Document`:
-En la clase `Document` 
+- `Document`:
+- En la clase `Document` 
 
 
          

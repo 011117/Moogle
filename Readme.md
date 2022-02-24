@@ -3,6 +3,7 @@
 ![](moogle.png)
 
 > Proyecto de Programación I. Facultad de Matemática y Computación. Universidad de La Habana. Curso 2021.
+> Abdel Fregel Hernández C-112
 
 Moogle! es una aplicación *totalmente original* cuyo propósito es buscar inteligentemente un texto en un conjunto de documentos.
 Utiliza un Sistema de Recuperación de la Información en el cual esta implementado un modelo vectorial para realizar las busquedas.

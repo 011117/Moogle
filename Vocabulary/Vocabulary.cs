@@ -6,11 +6,11 @@ namespace Vocabulary1;
 public class Vocabulary
 {
             
-    private Dictionary<string,int> Terms;
-    private Documents[] documents;
-    private Vector[] vectors_of_documents;
-
-    public Vocabulary(Documents[] documents)
+    private Dictionary<string,int> Terms; //variable para guardar los terminos<palabra,cantidad de veces que aparece>
+    public Documents[] documents; // un array con todos los documentos
+    private Vector[] vectors_of_documents; // un array para guardar los documentos ya vectorizados
+    #region Constructor
+    public Vocabulary(Documents[] documents) 
     {
         Terms =  new Dictionary<string, int>();
         this.documents = documents;
@@ -30,7 +30,8 @@ public class Vocabulary
         DocumentVectors(documents);
       
     }
-
+   #endregion
+   #region Methods
     private void DocumentVectors(Documents[] documents) // llenar los documentos ya vectorizados
     {
        this.vectors_of_documents = new Vector[documents.Length];
@@ -41,15 +42,15 @@ public class Vocabulary
       
     }
 
-    private Vector Vectorize(IGetTerms elements)
+    private Vector Vectorize(IGetTerms elements) // Metodo para vectorizar los documentos y la query
     {
         float[] final_vector =  new float[this.Terms.Count];
         int iterator = 0;
-        foreach(var word in Terms)
+        foreach(var word in Terms) // recorro los terminos 
         {
             if(elements.GetTerms().ContainsKey(word.Key))
             {
-              final_vector[iterator] = (float)(elements.GetTerms()[word.Key] )* Calculate_IDF(word.Key); 
+              final_vector[iterator] = (float)((float)elements.GetTerms()[word.Key]/(float)elements.GetTerms().Count )* Calculate_IDF(word.Key); //guardo en cada posicion el tf-idf
             }
             iterator++;
         }
@@ -57,15 +58,15 @@ public class Vocabulary
         return new Vector(final_vector);
     }
    
-    public float[] CalculateScores(Query query)
+    public float[] CalculateScores(Query query) // Metodo para calcular los Scores a cada documento,depende de la query
 	{
-		Vector vector_of_query= Vectorize(query);
-		float[] results = new float[this.documents.Length];
-		var operators=query.Operators;
-		for(int i =0 ;i < this.documents.Length ;i++)
+		Vector vector_of_query= Vectorize(query); // vectorizo la query
+		float[] results = new float[this.documents.Length]; // array para los resultados
+		var operators=query.Operators; // le pido los operadores de la query en caso de que hayan
+		for(int i =0 ;i < this.documents.Length ;i++)//recorro los documentos
 		{
 		results[i]= Vector.CosDistance(this.vectors_of_documents[i],vector_of_query);		
-				foreach(var op in operators )
+				foreach(var op in operators )//recorro los operadores y ejecuto la accion de cada uno si esta asignado a la palabra
 				{
 					switch(op.Key[0])
 					{
@@ -76,7 +77,7 @@ public class Vocabulary
 						{
 							if(documents[i].Terms.ContainsKey(opWord))
 							{
-							results[i]+=multiplicador*documents[i].Terms[opWord];
+							results[i]+=multiplicador;
 							break;
 							}
 						}
@@ -110,10 +111,17 @@ public class Vocabulary
 		return results;
 	}
     
-    private float Calculate_IDF(string word)
+    private float Calculate_IDF(string word)//Calcular los Idf
     {
        
         return (float)Math.Log10((float)((float)documents.Length/(float)documents.Where(elem=>elem.GetTerms().ContainsKey(word)).Count()));
         
+    }
+   #endregion
+    public Dictionary<string,int> GetTerms()
+    {
+        
+       return this.Terms;  
+             
     }
 }

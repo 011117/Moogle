@@ -14,7 +14,7 @@ public class SearchResult
         this.Suggestion = suggestion;
         if(items.Length >= 2)
         {
-        QuickSort(0,items.Length);
+        QuickSort(items,0,items.Length-1);
         }
     }
 
@@ -29,24 +29,32 @@ public class SearchResult
     }
 
     public int Count { get { return this.items.Length; } }
+    
+     private void QuickSort(SearchItem[] items,int s,int e)
+     {
+         if(s >= e) return;
+         float pivote = items[s].Score;
+         int pos = Particiona(items,s,e,pivote);
+         QuickSort(items,s,pos);
+         QuickSort(items,pos+1,e);
+
+     }
+     private int Particiona(SearchItem[] items,int s,int e,float pivote)
+     {
+         int i = s-1;
+         int j = e+1;
+         while(true)
+         {
+             do i++;while(items[i].Score > pivote);
+             do j--;while(items[j].Score < pivote);
+             if(i >= j)return j;
+             var aux = items[j];
+             items[j] = items[i];
+             items[i] = aux;
+          }
+     }
 
     private void QuickSort(int start,int end){
-	int r=end-1,l=start;
-	int pivot = start+((end-start)/2);
-	if(l<r){
-		while(l<r){
-			while(r > start && items[r].Score<=items[pivot].Score )r--;
-			while(l< end && items[l].Score>items[pivot].Score )l++;
-
-			if(l<r){
-			var aux = items[r];
-			items[r]=items[l];
-			items[l]=aux;
-			}
-		}
-
-		QuickSort(start,pivot);
-		QuickSort(pivot,end);
-	}
+	
     }
 }

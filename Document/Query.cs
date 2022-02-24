@@ -2,25 +2,25 @@ namespace Document;
 
 public class Query : IGetTerms
 {
-    private Dictionary<string,int> tokens;
-    private Dictionary<string,List<String>> operators;
+    private Dictionary<string,int> tokens; //aqui guardamos la cantida de veces que sale la palabra
+    private Dictionary<string,List<String>> operators;// aqui guardamos para cuada operador cuantas palabras modifica
     public Query(string query)
     {
-        operators = new Dictionary<string, List<string>>();
-        tokens =  new Dictionary<string, int>();
-        string[] words = query.ToLower().Replace('.',' ').Replace(',',' ').Replace('\n',' ').Split(" ");
-        foreach (var word in words)
+        operators = new Dictionary<string, List<string>>();// inicializamos 
+        tokens =  new Dictionary<string, int>(); // inicializamos
+        string[] words = query.ToLower().Replace('.',' ').Replace(',',' ').Replace('\n',' ').Split(" ");//llevamos todo a minuscula,quitamos los puntos y las comas y los saltos de lineas
+        foreach (var word in words)//recorremos el array de las palabras
         {
-             int position = GetOperators(word);
-             if( position != -1)
+             int position = GetOperators(word);//vemos si hay operadores y en que posicion
+             if( position != -1)//si no es -1
 		  {
-			string key = word.Substring(0,position+1);
-			string Value = word.Substring(position+1);
+			string key = word.Substring(0,position+1);//me quedo con el operador 
+            System.Console.WriteLine("operador "+key);
+			string Value = word.Substring(position+1);//me quedo con la palabra
             
-            System.Console.WriteLine("operador" + key);
-            System.Console.WriteLine("Valor"+ Value);
-			if(operators.ContainsKey(key) && !operators[key].Contains(Value))
-			{
+           
+			if(operators.ContainsKey(key) && !operators[key].Contains(Value))//para cada operador
+			{                                                               //veo si ya tiene la palabra en caso contrario la agrego
 				operators[key].Add(Value);
 			}else
 			{
@@ -29,38 +29,42 @@ public class Query : IGetTerms
 			}
             
 		  }
-          int pos = 0;
-          for(int i=0;i<word.Length;i++)
-          {
-              if(!IsOperator(word[i]))
-              {
-                  pos = i;
-                  break;
-              }
-          }
-          string word_final = word.Substring(pos);
-          System.Console.WriteLine(word_final);
-            if(tokens.ContainsKey(word_final))
-            {
-                tokens[word_final]++;
-            }
-            else
-            {
-                tokens.Add(word_final,1);
-            }
+          int pos = 0;//-------------------------------
+          for(int i=0;i<word.Length;i++)//             |
+          {//                                          |
+              if(!IsOperator(word[i]))//               |
+              {//                                      |
+                  pos = i;//                           |
+                  break;//                             |
+              }//                                      |
+          }//                                          |____ 
+          string word_final = word.Substring(pos);//        \  esto lo hago para el caso de que pongas  
+          System.Console.WriteLine(word_final);//       ____/ mas de un operador por palabar como es el 
+            if(tokens.ContainsKey(word_final))//       |      caso de los asteriscos quedarme con la palabra
+            {//                                        |
+                tokens[word_final]++;//                |
+            }//                                        |
+            else//                                     |
+            {//                                        |
+                tokens.Add(word_final,1);//            |
+            }//----------------------------------------
         }
     }
-    public Dictionary<string,List<string>> Operators {get{return this.operators;}}
+    public Dictionary<string,List<string>> Operators {get{return this.operators;}}//propiedad de los operadores
     public static int GetOperators(string text)
     {
+        if(text.Length <=2) // si es un operador y una letra o un operador vacio es absurdo
+        {
+            return -1;
+        }
           if(IsOperator(text[0]))
           {
               for(int i=0;i<text.Length;i++)
               {
-                  if(IsOperator(text[i]))
+                  if(!IsOperator(text[i]))//si es operador retorna la posicion
                   {
 
-                     return i;
+                     return i-1;
                   }
               }
           }  
@@ -77,6 +81,15 @@ public class Query : IGetTerms
         {
        return this.tokens;  
         }      
+    }
+    public  float Higher_TF()
+    {
+        float x =int.MinValue;
+        foreach(var word in this.tokens.Keys)
+        {
+            x = Math.Max(x,this.tokens[word]);
+        }
+        return x;
     }
     public Dictionary<string,int> GetTerms()
     {

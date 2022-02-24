@@ -2,6 +2,8 @@
 
   <ItemGroup>
     <ProjectReference Include="..\MoogleEngine\MoogleEngine.csproj" />
+    <ProjectReference Include="..\Vocabulary\Vocabulary.csproj" />
+    <ProjectReference Include="..\Document\Document.csproj" />
   </ItemGroup>
 
   <PropertyGroup>

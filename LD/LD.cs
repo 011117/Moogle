@@ -3,19 +3,34 @@ using Document;
 namespace LD;
 public class LevenstheinDistance
 {
-   public static string Corrector(string query,Documents[] vocabulary)// Analizar cual es la palabra que mas se parece de 
+    
+   public static string Corrector(string[] query,Documents[] documents,Vocabulary seeker)// Analizar cual es la palabra que mas se parece de 
    {                                                    // las que estan en el documento
-       foreach (var document in vocabulary)
+       for(int i=0;i<query.Length;i++)
        {
-         foreach(var word in document.GetTerms().Keys)
-         {
-             if(LD(query,word) <=2)
-             {
-                 return word;
-             }
-         } 
+           if(!seeker.GetTerms().ContainsKey(query[i]))
+           {
+               foreach(var word in seeker.GetTerms().Keys)
+               {
+                   
+                       System.Console.WriteLine(word);
+                     if(LD(query[i],word) <= 1)
+                     {
+                         query[i] = word;
+                         break;
+                     }
+               }   
+            
+           }
        }
-       return query;
+        string c = "";
+        for(int i=0;i<query.Length;i++)
+        {
+            c += " " + query[i];
+            System.Console.WriteLine("//" +query[i]);
+        }
+        
+       return c;
    }
   private static int LD(string a, string b)
    {

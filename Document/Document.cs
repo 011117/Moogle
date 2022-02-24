@@ -41,7 +41,7 @@ public class Documents :IGetTerms
        StreamReader reader = new StreamReader(path);
        this.name = path.Split("/")[2];
        string lecture = reader.ReadToEnd().ToLower();
-       this.snippet = (lecture.Length > 100) ?lecture.Substring(0,500) + "...":lecture.Substring(0,lecture.Length) + "..." ;
+       this.snippet = (lecture.Length > 100) ?lecture.Substring(0,60) + "...":lecture.Substring(0,lecture.Length) + "..." ;
        string[] words = lecture.Replace('.',' ').Replace(',',' ').Replace('\n',' ').Split(" ");
        Console.WriteLine("aqui " +words.Length);
        foreach(var word in words)

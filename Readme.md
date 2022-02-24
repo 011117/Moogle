@@ -72,7 +72,7 @@ este método devuelve la menor distancia entre dos palabaras del documento que t
           {
               for(int i=0;i<text.Length;i++)
               {
-                  if(!IsOperator(text[i]))//si es operador retorna la posicion
+                  if(!IsOperator(text[i]))//si no es operador retorna la posicion anterior
                   {
 
                      return i-1;
@@ -94,6 +94,12 @@ este método devuelve la menor distancia entre dos palabaras del documento que t
  - En la clase `Vocabulary` como su nombre nombre indica es donde ya con los documentos creamos nuestro vocabulario(donde tenemos todas las palabras y la cantidad de veces que aparece) en esta clase es donde vectorizamos los documentos y la consulta del usuario, también calculamos el `TF-IDF` y los `score` de los documentos y además implementamos los operadores.
  - `LD`
  - Esta clase es muy sencilla, esta nos ayuda a ¨corregir¨ al usuario. En ella implementamos un algoritmo llamado `Levenshtein Distance`(Distancia de Levenshtein), este algoritmo se usa para ver la mínima cantidad de operaciones para llegar de una palabra a otra. Así si una palabra de la consulta no aparece en mi vocabulario yo busco entre estas y si hay alguna que se parezca es enviada como sugerencia para el usuario.
+ - `Vector`
+ - En esta clase se implementan todas las opercaiones que cumplen los vectores, esto se realiza ya que nuestro motor de busqueda utiliza un modelo vectorial. En ella se encuentran las operacion de suma, multiplicación entre vectores y multiplicación entre vector y escalar(generalmente números).
+
+## Flujo de la aplicación
+- Aqui explicaremos como se ejecutan los procesos dentro de la aplicación:
+-  Primeramente cuando el servidor arranca son cargados todos los documentos, esto se hace para en temas de optimización cargarlos una sola vez. Se crea un `array` de documentos que son pasados a la clase `Vocabulary` para crear el vocabulario. Cuando el usuario introduce la consulta esta es pasada para la clase `Query` donde se hace todo el proceso(quedarnos con las palabras,ver los operadores,etc) antes descrito, luego estos ese `array` de documentos y la cosulta son enviados a la clase `Vocabulary` donde se le calcula el `score` a los documentos con respecto a la consulta y se crean los vectores de los `scores` que este es ordenado y pasado a `MoogleServer` el cual se encarga de mostrarle al usuario los documentos que coinciden con la busqueda y en orden de semejanza(a mayor semejanza más arriba en la pagina). 
  
 
 

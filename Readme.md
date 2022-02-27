@@ -101,6 +101,11 @@ este método devuelve la menor distancia entre dos palabaras del documento que t
 ## Flujo de la aplicación
 - Aqui explicaremos como se ejecutan los procesos dentro de la aplicación:
 -  Primeramente cuando el servidor arranca son cargados todos los documentos, esto se hace para en temas de optimización cargarlos una sola vez. Se crea un `array` de documentos que son pasados a la clase `Vocabulary` para crear el vocabulario. Cuando el usuario introduce la consulta esta es pasada para la clase `Query` donde se hace todo el proceso(quedarnos con las palabras,ver los operadores,etc) antes descrito, luego estos ese `array` de documentos y la cosulta son enviados a la clase `Vocabulary` donde se le calcula el `score` a los documentos con respecto a la consulta y se crean los vectores de los `scores` que este es ordenado y pasado a `MoogleServer` el cual se encarga de mostrarle al usuario los documentos que coinciden con la busqueda y en orden de semejanza(a mayor semejanza más arriba en la pagina). 
+
+## Bibliografía
+-Wikipedia
+-Google
+
  
 
 

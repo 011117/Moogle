@@ -101,10 +101,12 @@ este método devuelve la menor distancia entre dos palabaras del documento que t
 ## Flujo de la aplicación
 - Aqui explicaremos como se ejecutan los procesos dentro de la aplicación:
 -  Primeramente cuando el servidor arranca son cargados todos los documentos, esto se hace para en temas de optimización cargarlos una sola vez. Se crea un `array` de documentos que son pasados a la clase `Vocabulary` para crear el vocabulario. Cuando el usuario introduce la consulta esta es pasada para la clase `Query` donde se hace todo el proceso(quedarnos con las palabras,ver los operadores,etc) antes descrito, luego estos ese `array` de documentos y la cosulta son enviados a la clase `Vocabulary` donde se le calcula el `score` a los documentos con respecto a la consulta y se crean los vectores de los `scores` que este es ordenado y pasado a `MoogleServer` el cual se encarga de mostrarle al usuario los documentos que coinciden con la busqueda y en orden de semejanza(a mayor semejanza más arriba en la pagina). 
-
+## Algoritmos utilizados
+- Primeramente use diccionarios que es una estructura de datos que guarda los datos que relaciona pares <clave,valor> y lo utilizo por comodidad a la hora de sacar la frecuencia de las palabras, ya que es más facil asociarle a cada palabra(clave) su frecuencia(valor).
+- Utilice el algoritmo de la distancia de Levenshtein para corregir las palabras mal escritas ya que este algoritmo es utilizado para saber la menor cantidad de pasos para llegar de una palabra a la otra utilizando inserción,eliminación y reemplazamiento. Hice uso de la programación dinámica para implementar el algoritmo sabiendo los valores de los casos bases lleno la primera fila y la primera columna de mi matriz y con esos valores voy llenando la matriz y al final me quedo con el valor en la posición que me interesa. la matriz tiene tamaño tamaño de la primera palabra X tamaño de la segunda palabra y nos quedamos con el valor en la última posición que va a ser la mínima.  
 ## Bibliografía
--Wikipedia
--Google
+- Wikipedia
+- Google
 
  
 

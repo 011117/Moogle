@@ -108,7 +108,7 @@ este método devuelve la menor distancia entre dos palabaras del documento que t
 - Wikipedia
 - Google
 
- 
-
+- Si estas usando Windows ir a MoogleServer/Program.cs línea 20 y poner  var docs = Directory.GetFiles("..\\Content","*.txt");
+- Si estas usando Linux ir a MoogleServer/Program.cs línea 20 y poner  var docs = Directory.GetFiles("../Content","*.txt");
 
          

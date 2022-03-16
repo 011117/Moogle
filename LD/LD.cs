@@ -13,7 +13,7 @@ public class LevenstheinDistance
                foreach(var word in seeker.GetTerms().Keys)
                {
                    
-                       System.Console.WriteLine(word);
+                       
                      if(LD(query[i],word) <= 1)
                      {
                          query[i] = word;
@@ -27,7 +27,7 @@ public class LevenstheinDistance
         for(int i=0;i<query.Length;i++)
         {
             c += " " + query[i];
-            System.Console.WriteLine("//" +query[i]);
+           
         }
         
        return c;

@@ -15,7 +15,7 @@ public class Query : IGetTerms
              if( position != -1)//si no es -1
 		  {
 			string key = word.Substring(0,position+1);//me quedo con el operador 
-            System.Console.WriteLine("operador "+key);
+           
 			string Value = word.Substring(position+1);//me quedo con la palabra
             
            
@@ -39,7 +39,7 @@ public class Query : IGetTerms
               }//                                      |
           }//                                          |____ 
           string word_final = word.Substring(pos);//        \  esto lo hago para el caso de que pongas  
-          System.Console.WriteLine(word_final);//       ____/ mas de un operador por palabar como es el 
+                                               //       ____/ mas de un operador por palabra como es el 
             if(tokens.ContainsKey(word_final))//       |      caso de los asteriscos quedarme con la palabra
             {//                                        |
                 tokens[word_final]++;//                |
@@ -61,7 +61,7 @@ public class Query : IGetTerms
           {
               for(int i=0;i<text.Length;i++)
               {
-                  if(!IsOperator(text[i]))//si es operador retorna la posicion
+                  if(!IsOperator(text[i]))//si no es operador retorna la posicion
                   {
 
                      return i-1;

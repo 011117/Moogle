@@ -45,7 +45,7 @@ public class Documents :IGetTerms
        int iterator = 0;
        this.snippet = (lecture.Length > 100) ?lecture.Substring(0,60) + "...":lecture.Substring(0,lecture.Length) + "..." ;
        string[] words = lecture.Replace('.',' ').Replace(',',' ').Replace('\n',' ').Split(" ");
-       Console.WriteLine("aqui " +words.Length);
+       
        foreach(var word in words)
        {
          if(tokens.ContainsKey(word)){
@@ -60,6 +60,7 @@ public class Documents :IGetTerms
          }
          iterator++;
        }
+       reader.Close();
     }
     public int Min_Distance(string a,string b)
     {

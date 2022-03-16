@@ -16,7 +16,7 @@ public static class Moogle
           SearchItem[] items =  new SearchItem[seeker.documents.Length];
           float[] scores = seeker.CalculateScores(final_query);
           string[] query_levensthein = final_query.GetTerms().Keys.ToArray<string>();
-          System.Console.WriteLine("*"+query_levensthein[0]);
+          
           for(int i = 0 ; i < seeker.documents.Length ; i++)
           {
               items[i] = new SearchItem(seeker.documents[i].Name,seeker.documents[i].Snippet,scores[i]);
